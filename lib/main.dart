@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/colors.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -23,12 +24,34 @@ class _CalculatorAppState extends State<CalculatorApp> {
           //buttons
           Row(
             children: [
-              Expanded(
-                child: ElevatedButton(onPressed: () {}, child: const Text("1")),
-              ),
+              button(text: '1'),
+              button(text: '2'),
+              button(text: '3'),
+              button(text: '4'),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget button({text, tColor = Colors.white, buttonBgColor = buttonColor}) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.all(22),
+              backgroundColor: buttonColor),
+          onPressed: () {},
+          child: Text(
+            "1",
+            style: TextStyle(
+                fontSize: 18, color: tColor, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
