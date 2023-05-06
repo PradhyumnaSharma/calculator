@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/colorss.dart';
+import 'package:flutter_application_1/colors.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() {
@@ -36,9 +36,6 @@ class _CalculatorAppState extends State<CalculatorApp> {
     } else if (value == "<") {
       if (Input.isNotEmpty) {
         Input = Input.substring(0, Input.length - 1);
-      } else if (value == "Don't click me") {
-        // hideInput = true;
-        Output = "Told you not to click😑";
       }
     } else if (value == "=") {
       if (Input.isNotEmpty) {
@@ -56,11 +53,16 @@ class _CalculatorAppState extends State<CalculatorApp> {
         hideInput = true;
         OutputSize = 52;
       }
+    } else if (value == "Don't click me") {
+      // hideInput = true;
+      Output = "Told you not to click😑";
     } else {
       Input = Input + value;
       hideInput = false;
       OutputSize = 34;
     }
+    ;
+
     setState(() {});
   }
 
