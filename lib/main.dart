@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/colorss.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,6 +17,53 @@ class CalculatorApp extends StatefulWidget {
 }
 
 class _CalculatorAppState extends State<CalculatorApp> {
+  //variables
+
+  double firstNum = 0.0;
+  double secondNum = 0.0;
+  var Input = '';
+  var Output = '';
+  var operation = '';
+  var hideInput = false;
+  var OutputSize = 34.0;
+
+  OnButtonClick(value) {
+    // print(value);
+    //if value is AC
+    if (value == "AC") {
+      Input = '';
+      Output = '';
+    } else if (value == "<") {
+      if (Input.isNotEmpty) {
+        Input = Input.substring(0, Input.length - 1);
+      } else if (value == "Don't click me") {
+        // hideInput = true;
+        Output = "Told you not to click😑";
+      }
+    } else if (value == "=") {
+      if (Input.isNotEmpty) {
+        var userInput = Input;
+        userInput = Input.replaceAll("x", "*");
+        Parser p = Parser();
+        Expression expression = p.parse(userInput);
+        ContextModel cm = ContextModel();
+        var finalValue = expression.evaluate(EvaluationType.REAL, cm);
+        Output = finalValue.toString();
+        if (Output.endsWith(".0")) {
+          Output = Output.substring(0, Output.length - 2);
+        }
+        Input = Output;
+        hideInput = true;
+        OutputSize = 52;
+      }
+    } else {
+      Input = Input + value;
+      hideInput = false;
+      OutputSize = 34;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +81,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "Input",
+                    hideInput ? '' : Input,
                     style: TextStyle(
                       fontSize: 48,
                       color: Colors.white,
@@ -43,9 +91,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     height: 20,
                   ),
                   Text(
-                    "Output",
+                    Output,
                     style: TextStyle(
-                      fontSize: 34,
+                      fontSize: OutputSize,
                       color: Colors.white.withOpacity(0.7),
                     ),
                   ),
@@ -64,7 +112,10 @@ class _CalculatorAppState extends State<CalculatorApp> {
                   tColor: orangeColor),
               button(
                   text: '<', buttonBgColor: operatorColor, tColor: orangeColor),
-              button(text: '', buttonBgColor: Colors.transparent),
+              button(
+                  text: "Don't click me",
+                  buttonBgColor: operatorColor,
+                  tColor: orangeColor),
               button(
                   text: '/', buttonBgColor: operatorColor, tColor: orangeColor),
             ],
@@ -75,7 +126,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
               button(text: '8'),
               button(text: '9'),
               button(
-                  text: 'X', buttonBgColor: operatorColor, tColor: orangeColor),
+                  text: 'x', buttonBgColor: operatorColor, tColor: orangeColor),
             ],
           ),
           Row(
@@ -102,7 +153,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
               button(text: '0'),
               button(text: '.'),
               button(
-                  text: '=', buttonBgColor: orangeColor, tColor: orangeColor),
+                  text: '=',
+                  buttonBgColor: Colors.orange,
+                  tColor: Colors.orange),
             ],
           ),
         ],
@@ -121,7 +174,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             padding: const EdgeInsets.all(22),
           ),
-          onPressed: () {},
+          onPressed: () => OnButtonClick(text),
           child: Text(
             text,
             style: TextStyle(
