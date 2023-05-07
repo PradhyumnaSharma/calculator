@@ -60,9 +60,6 @@ class _CalculatorAppState extends State<CalculatorApp> {
       Input = Input + value;
       hideInput = false;
       OutputSize = 34;
-    
-    
-    
     }
     ;
 
