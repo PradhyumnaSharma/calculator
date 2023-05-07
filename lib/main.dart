@@ -60,6 +60,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
       Input = Input + value;
       hideInput = false;
       OutputSize = 34;
+    
+    
+    
     }
     ;
 
@@ -109,9 +112,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
           Row(
             children: [
               button(
-                  text: "AC",
-                  buttonBgColor: operatorColor,
-                  tColor: orangeColor),
+                  text: "AC", buttonBgColor: buttonColor, tColor: orangeColor),
               button(
                   text: '<', buttonBgColor: operatorColor, tColor: orangeColor),
               button(
@@ -165,7 +166,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
     );
   }
 
-  Widget button({text, tColor, buttonBgColor = Colors.orange, operatorColor}) {
+  Widget button({text, tColor, buttonBgColor = Colors.orange}) {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(8),
